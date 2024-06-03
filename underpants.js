@@ -20,6 +20,10 @@ var _ = {};
 *   _.identity(5) === 5
 *   _.identity({a: "b"}) === {a: "b"}
 */
+//return value 
+_.identity = function(value) {
+    return value;
+};
 
 
 /** _.typeOf
@@ -209,6 +213,17 @@ var _ = {};
 *   _.map([1,2,3,4], function(e){return e * 2}) -> [2,4,6,8]
 */
 
+_.map = function(collection, func){
+
+ // Check if collection is an array
+ if (Array.isArray(collection)) {
+    var resultArray = [];
+    for (var i = 0; i < collection.length; i++) {
+      // Call the function with arguments: element, index, collection
+      resultArray.push(func(collection[i], i, collection));
+    }
+    return resultArray;
+  }}
 
 /** _.pluck
 * Arguments:
