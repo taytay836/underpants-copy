@@ -45,7 +45,12 @@ _.identity = function(value) {
 * _.typeOf("javascript") -> "string"
 * _.typeOf([1,2,3]) -> "array"
 */
-
+// _.typeOf
+_.typeOf = function(value) {
+  if (Array.isArray(value)) return "array";
+  if (value === null) return "null";
+  return typeof value;
+};
 
 /** _.first
 * Arguments:
@@ -64,7 +69,11 @@ _.identity = function(value) {
 *   _.first(["a", "b", "c"], 1) -> "a"
 *   _.first(["a", "b", "c"], 2) -> ["a", "b"]
 */
-
+_.first = function(array, number) {
+  if (!Array.isArray(array) || number < 0) return [];
+  if (number === undefined || typeof number !== 'number') return array[0];
+  return array.slice(0, number);
+};
 
 /** _.last
 * Arguments:
@@ -83,7 +92,11 @@ _.identity = function(value) {
 *   _.last(["a", "b", "c"], 1) -> "c"
 *   _.last(["a", "b", "c"], 2) -> ["b", "c"]
 */
-
+_.last = function(array, number) {
+  if (!Array.isArray(array) || number < 0) return [];
+  if (number === undefined || typeof number !== 'number') return array[array.length - 1];
+  return array.slice(-number);
+};
 
 /** _.indexOf
 * Arguments:
@@ -100,7 +113,12 @@ _.identity = function(value) {
 *   _.indexOf(["a","b","c"], "c") -> 2
 *   _.indexOf(["a","b","c"], "d") -> -1
 */
-
+_.indexOf = function(array, value) {
+  for (var i = 0; i < array.length; i++) {
+      if (array[i] === value) return i;
+  }
+  return -1;
+};
 
 /** _.contains
 * Arguments:
@@ -116,7 +134,9 @@ _.identity = function(value) {
 * Examples:
 *   _.contains([1,"two", 3.14], "two") -> true
 */
-
+_.contains = function(array, value) {
+  return array.indexOf(value) !== -1 ? true : false;
+}
 
 /** _.each
 * Arguments:
