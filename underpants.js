@@ -97,7 +97,6 @@ _.last = function(array, number) {
   if (number === undefined || typeof number !== 'number') return array[array.length - 1];
   return array.slice(-number);
 };
-
 /** _.indexOf
 * Arguments:
 *   1) An array
@@ -153,6 +152,19 @@ _.contains = function(array, value) {
 *   _.each(["a","b","c"], function(e,i,a){ console.log(e)});
 *      -> should log "a" "b" "c" to the console
 */
+_.each = function(collection, func) {
+  if (Array.isArray(collection)) {
+      for (var i = 0; i < collection.length; i++) {
+          func(collection[i], i, collection);
+      }
+  } else {
+      for (var key in collection) {
+          if (collection.hasOwnProperty(key)) {
+              func(collection[key], key, collection);
+          }
+      }
+  }
+};
 
 
 /** _.unique
