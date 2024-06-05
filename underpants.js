@@ -176,7 +176,15 @@ _.each = function(collection, func) {
 * Examples:
 *   _.unique([1,2,2,4,5,6,5,2]) -> [1,2,4,5,6]
 */
-
+_.unique = function(array) {
+  var uniqueArray = [];
+  for (var i = 0; i < array.length; i++) {
+      if (_.indexOf(uniqueArray, array[i]) === -1) {
+          uniqueArray.push(array[i]);
+      }
+  }
+  return uniqueArray;
+};
 
 /** _.filter
 * Arguments:
@@ -193,7 +201,13 @@ _.each = function(collection, func) {
 * Extra Credit:
 *   use _.each in your implementation
 */
-
+_.filter = function(array, func) {
+  var filteredArray = [];
+  _.each(array, function(element, index, collection) {
+      if (func(element, index, collection)) filteredArray.push(element);
+  });
+  return filteredArray;
+};
 
 /** _.reject
 * Arguments:
@@ -207,6 +221,13 @@ _.each = function(collection, func) {
 * Examples:
 *   _.reject([1,2,3,4,5], function(e){return e%2 === 0}) -> [1,3,5]
 */
+_.reject = function(array, func) {
+  var rejectedArray = [];
+  _.each(array, function(element, index, collection) {
+      if (!func(element, index, collection)) rejectedArray.push(element);
+  });
+  return rejectedArray;
+};
 
 
 /** _.partition
@@ -227,7 +248,18 @@ _.each = function(collection, func) {
 *   }); -> [[2,4],[1,3,5]]
 }
 */
-
+_.partition = function(array, func) {
+  var truthyArray = [];
+  var falsyArray = [];
+  for (var i = 0; i < array.length; i++) {
+      if (func(array[i], i, array)) {
+          truthyArray.push(array[i]);
+      } else {
+          falsyArray.push(array[i]);
+      }
+  }
+  return [truthyArray, falsyArray];
+};
 
 /** _.map
 * Arguments:
@@ -244,18 +276,7 @@ _.each = function(collection, func) {
 * Examples:
 *   _.map([1,2,3,4], function(e){return e * 2}) -> [2,4,6,8]
 */
-
-_.map = function(collection, func){
-
- // Check if collection is an array
- if (Array.isArray(collection)) {
-    var resultArray = [];
-    for (var i = 0; i < collection.length; i++) {
-      // Call the function with arguments: element, index, collection
-      resultArray.push(func(collection[i], i, collection));
-    }
-    return resultArray;
-  }}
+// Check if collection is an array
 
 /** _.pluck
 * Arguments:
@@ -267,7 +288,11 @@ _.map = function(collection, func){
 * Examples:
 *   _.pluck([{a: "one"}, {a: "two"}], "a") -> ["one", "two"]
 */
-
+_.pluck = function(array, property) {
+  return _.map(array, function(element) {
+      return element[property];
+  });
+};
 
 /** _.every
 * Arguments:
@@ -289,6 +314,17 @@ _.map = function(collection, func){
 *   _.every([2,4,6], function(e){return e % 2 === 0}) -> true
 *   _.every([1,2,3], function(e){return e % 2 === 0}) -> false
 */
+_.every = function(collection, func) {
+  var result = true;
+  _.each(collection, function(element, index, collection) {
+      if (typeof func === 'function') {
+          if (!func(element, index, collection)) result = false;
+      } else {
+          if (!element) result = false;
+      }
+  });
+  return result;
+};
 
 
 /** _.some
