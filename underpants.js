@@ -251,14 +251,16 @@ _.reject = function(array, func) {
 _.partition = function(array, func) {
   var truthyArray = [];
   var falsyArray = [];
+  var localArr = []
   for (var i = 0; i < array.length; i++) {
       if (func(array[i], i, array)) {
           truthyArray.push(array[i]);
       } else {
           falsyArray.push(array[i]);
       }
+      localArr.push(truthyArray, falsyArray)
   }
-  return [truthyArray, falsyArray];
+  return localArr;
 };
 
 /** _.map
