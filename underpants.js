@@ -251,16 +251,14 @@ _.reject = function(array, func) {
 _.partition = function(array, func) {
   var truthyArray = [];
   var falsyArray = [];
-  var localArr = []
-  for (var i = 0; i < array.length; i++) {
-      if (func(array[i], i, array)) {
-          truthyArray.push(array[i]);
-      } else {
-          falsyArray.push(array[i]);
-      }
-      localArr.push(truthyArray, falsyArray)
-  }
-  return localArr;
+  _.each(array, function(element, index, collection) {
+    if (func(element, index, collection)) {
+      truthyArray.push(element);
+    } else {
+      falsyArray.push(element);
+    }
+  });
+  return [truthyArray, falsyArray];
 };
 
 /** _.map
@@ -279,6 +277,14 @@ _.partition = function(array, func) {
 *   _.map([1,2,3,4], function(e){return e * 2}) -> [2,4,6,8]
 */
 // Check if collection is an array
+_.map = function(collection, func) {
+  var mappedArray = [];
+  _.each(collection, function(element, index, collection) {
+    mappedArray.push(func(element, index, collection));
+  });
+  return mappedArray;
+};
+
 
 /** _.pluck
 * Arguments:
@@ -349,6 +355,17 @@ _.every = function(collection, func) {
 *   _.some([1,3,5], function(e){return e % 2 === 0}) -> false
 *   _.some([1,2,3], function(e){return e % 2 === 0}) -> true
 */
+_.some = function(collection, func) {
+  var result = false;
+  _.each(collection, function(element, index, collection) {
+    if (typeof func === 'function') {
+      if (func(element, index, collection)) result = true;
+    } else {
+      if (element) result = true;
+    }
+  });
+  return result;
+};
 
 
 /** _.reduce
@@ -369,7 +386,21 @@ _.every = function(collection, func) {
 * Examples:
 *   _.reduce([1,2,3], function(previousSum, currentValue, currentIndex){ return previousSum + currentValue }, 0) -> 6
 */
+_.reduce = function(array, func, seed) {
+  var previous = seed;
+  var startIndex = 0;
 
+  if (seed === undefined) {
+    previous = array[0];
+    startIndex = 1;
+  }
+
+  for (var i = startIndex; i < array.length; i++) {
+    previous = func(previous, array[i], i);
+  }
+
+  return previous;
+};
 
 /** _.extend
 * Arguments:
@@ -385,6 +416,16 @@ _.every = function(collection, func) {
 *   _.extend(data, {b:"two"}); -> data now equals {a:"one",b:"two"}
 *   _.extend(data, {a:"two"}); -> data now equals {a:"two"}
 */
+_.extend = function(obj) {
+  for (var i = 1; i < arguments.length; i++) {
+    for (var key in arguments[i]) {
+      if (arguments[i].hasOwnProperty(key)) {
+        obj[key] = arguments[i][key];
+      }
+    }
+  }
+  return obj;
+};
 
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
