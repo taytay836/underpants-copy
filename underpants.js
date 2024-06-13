@@ -237,7 +237,9 @@ _.filter = function(array, func) {
 *   _.reject([1,2,3,4,5], function(e){return e%2 === 0}) -> [1,3,5]
 */
 _.reject = function(array, func) {
+  // create new array iterate
   var rejectedArray = [];
+  //if function returns false add it
   _.each(array, function(element, index, collection) {
       if (!func(element, index, collection)) rejectedArray.push(element);
   });
@@ -264,12 +266,16 @@ _.reject = function(array, func) {
 }
 */
 _.partition = function(array, func) {
+  //create new arrays for both
   var truthyArray = [];
   var falsyArray = [];
+  //iterate over input array
   _.each(array, function(element, index, collection) {
+    //if func return true add to truthy array
     if (func(element, index, collection)) {
       truthyArray.push(element);
     } else {
+      //if false add to falsy array
       falsyArray.push(element);
     }
   });
@@ -293,10 +299,13 @@ _.partition = function(array, func) {
 */
 // Check if collection is an array
 _.map = function(collection, func) {
+  //create mapped array
   var mappedArray = [];
+  //apply func to each elemrnt and add result to array
   _.each(collection, function(element, index, collection) {
     mappedArray.push(func(element, index, collection));
   });
+  // return mapped array
   return mappedArray;
 };
 
@@ -312,7 +321,9 @@ _.map = function(collection, func) {
 *   _.pluck([{a: "one"}, {a: "two"}], "a") -> ["one", "two"]
 */
 _.pluck = function(array, property) {
+  //use map
   return _.map(array, function(element) {
+    //return value at specified property
       return element[property];
   });
 };
@@ -339,8 +350,10 @@ _.pluck = function(array, property) {
 */
 _.every = function(collection, func) {
   var result = true;
+  //iterate over collection
   _.each(collection, function(element, index, collection) {
       if (typeof func === 'function') {
+        //if func return false set the result to false
           if (!func(element, index, collection)) result = false;
       } else {
           if (!element) result = false;
@@ -371,14 +384,17 @@ _.every = function(collection, func) {
 *   _.some([1,2,3], function(e){return e % 2 === 0}) -> true
 */
 _.some = function(collection, func) {
+  //result is false
   var result = false;
   _.each(collection, function(element, index, collection) {
+    //if func returns true set result to true
     if (typeof func === 'function') {
       if (func(element, index, collection)) result = true;
     } else {
       if (element) result = true;
     }
   });
+  //return result
   return result;
 };
 
@@ -404,16 +420,19 @@ _.some = function(collection, func) {
 _.reduce = function(array, func, seed) {
   var previous = seed;
   var startIndex = 0;
+  //if no seed use 1st element
 
   if (seed === undefined) {
+    //itearte over array
     previous = array[0];
     startIndex = 1;
   }
+  //apply fu nc to previous result and the current element
 
   for (var i = startIndex; i < array.length; i++) {
     previous = func(previous, array[i], i);
   }
-
+//return result
   return previous;
 };
 
@@ -432,13 +451,16 @@ _.reduce = function(array, func, seed) {
 *   _.extend(data, {a:"two"}); -> data now equals {a:"two"}
 */
 _.extend = function(obj) {
+  //iterate over all objects
   for (var i = 1; i < arguments.length; i++) {
+    //copy each object properties to 1st object
     for (var key in arguments[i]) {
       if (arguments[i].hasOwnProperty(key)) {
         obj[key] = arguments[i][key];
       }
     }
   }
+  // return updated 1st object
   return obj;
 };
 
