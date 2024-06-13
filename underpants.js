@@ -214,8 +214,11 @@ _.unique = function(array) {
 *   use _.each in your implementation
 */
 _.filter = function(array, func) {
+  //create new array of filtered eelemets
   var filteredArray = [];
+  //iterate over filtered elements
   _.each(array, function(element, index, collection) {
+    //if func returns true add it
       if (func(element, index, collection)) filteredArray.push(element);
   });
   return filteredArray;
