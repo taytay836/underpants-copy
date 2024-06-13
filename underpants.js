@@ -22,6 +22,7 @@ var _ = {};
 */
 //return value 
 _.identity = function(value) {
+  //return input value
     return value;
 };
 
@@ -47,6 +48,7 @@ _.identity = function(value) {
 */
 // _.typeOf
 _.typeOf = function(value) {
+  //if value is array return array else return null
   if (Array.isArray(value)) return "array";
   if (value === null) return "null";
   return typeof value;
@@ -70,7 +72,9 @@ _.typeOf = function(value) {
 *   _.first(["a", "b", "c"], 2) -> ["a", "b"]
 */
 _.first = function(array, number) {
+  //if input not an array return empty array
   if (!Array.isArray(array) || number < 0) return [];
+  //number not here return 1st element
   if (number === undefined || typeof number !== 'number') return array[0];
   return array.slice(0, number);
 };
@@ -93,6 +97,7 @@ _.first = function(array, number) {
 *   _.last(["a", "b", "c"], 2) -> ["b", "c"]
 */
 _.last = function(array, number) {
+  //if number not prvided return last element in array
   if (!Array.isArray(array) || number < 0) return [];
   if (number === undefined || typeof number !== 'number') return array[array.length - 1];
   return array.slice(-number);
@@ -113,7 +118,9 @@ _.last = function(array, number) {
 *   _.indexOf(["a","b","c"], "d") -> -1
 */
 _.indexOf = function(array, value) {
+  //iterate over array
   for (var i = 0; i < array.length; i++) {
+    //if current element matches value return its index
       if (array[i] === value) return i;
   }
   return -1;
@@ -134,6 +141,7 @@ _.indexOf = function(array, value) {
 *   _.contains([1,"two", 3.14], "two") -> true
 */
 _.contains = function(array, value) {
+  //check if array contains value return true if it does
   return array.indexOf(value) !== -1 ? true : false;
 }
 
@@ -153,11 +161,13 @@ _.contains = function(array, value) {
 *      -> should log "a" "b" "c" to the console
 */
 _.each = function(collection, func) {
+  //if collection is array iterate over and call function
   if (Array.isArray(collection)) {
       for (var i = 0; i < collection.length; i++) {
           func(collection[i], i, collection);
       }
   } else {
+    //if collection is object iterate over property and call function
       for (var key in collection) {
           if (collection.hasOwnProperty(key)) {
               func(collection[key], key, collection);
@@ -177,8 +187,10 @@ _.each = function(collection, func) {
 *   _.unique([1,2,2,4,5,6,5,2]) -> [1,2,4,5,6]
 */
 _.unique = function(array) {
+  // create new array for unique elements
   var uniqueArray = [];
   for (var i = 0; i < array.length; i++) {
+    //if element not in unique array add it
       if (_.indexOf(uniqueArray, array[i]) === -1) {
           uniqueArray.push(array[i]);
       }
