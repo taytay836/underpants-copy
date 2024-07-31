@@ -177,7 +177,7 @@ _.each = function(collection, func) {
 *   1) An array
 * Objectives:
 *   1) Return a new array of all elements from <array> with duplicates removed
-*   2) Use _.indexOf() from above
+*   2) Use _.indexOf() from abovee
 * Examples:
 *   _.unique([1,2,2,4,5,6,5,2]) -> [1,2,4,5,6]
 */
